@@ -10,14 +10,34 @@ import { IPokedexList } from '../../../api/src/pokemon/interface/pokedex.interfa
 })
 export class PokedexAppComponent implements OnInit{
   pokemons: IPokedexList | null = null;
-  filteredItems = [];
+  name: string = ""
   constructor(private pokemonService: PokemonService, private router: Router) {}
   
   async ngOnInit(): Promise<void> {
     this.pokemons = await this.pokemonService.getList();
-    console.log(this.pokemons);
   }
 
-  async search(name?: string) {}
+  async list(url?: string) {
+    const next = await this.pokemonService.getList(undefined, "/?"+ url?.split("?")[1]);
+    const oldPokemons = this.pokemons?.results;
+    this.pokemons = {
+      ...next,
+      results: [ ...oldPokemons!, ...next.results],
+    }
+  }
+
+  async search(name: string) {
+    const pokemon = await this.pokemonService.search(name);
+    if(pokemon) {
+      this.pokemons = {
+        count: 0,
+        next: this.pokemons?.next ?? "",
+        previous: this.pokemons?.previous ?? "",
+        results: [{...pokemon}]
+      }
+    }else {
+      this.pokemons = await this.pokemonService.getList()
+    }
+  }
   async details(id: string) {}
 }

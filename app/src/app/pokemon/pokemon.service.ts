@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { lastValueFrom, Observable } from "rxjs";
-import { IPokedexList } from "../../../../api/src/pokemon/interface/pokedex.interface";
+import { IPokedex, IPokedexList } from "../../../../api/src/pokemon/interface/pokedex.interface";
 
 @Injectable({
     providedIn: 'root',
@@ -19,5 +19,9 @@ export class PokemonService {
             query += url;
         }
         return (await lastValueFrom(this.client.get<IPokedexList>(query)));
+    }
+
+    async search(name: string) {
+        return (await lastValueFrom(this.client.get<IPokedex>(`${this.apiUrl}/pokemon/search?name=${name}`)));
     }
 }
