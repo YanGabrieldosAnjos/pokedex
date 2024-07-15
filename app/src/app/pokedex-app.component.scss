@@ -1,0 +1,26 @@
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #529703;
+    background-color: #529703;
+    border-radius: 5px;
+  }
+  
+  
+  
+  .container {
+    background-color: #5ca904; 
+    border-radius: 10px;
+    padding: 20px;
+  }
