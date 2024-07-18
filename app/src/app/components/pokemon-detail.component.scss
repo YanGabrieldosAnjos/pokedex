@@ -1,0 +1,82 @@
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #333;
+  min-width: 320px;
+  position: fixed;
+  left: 40%;
+  padding: 24px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+}
+
+.overlay {
+  background: #000;
+  height: 100vh;
+  left: 0;
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: block;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  max-height: 150px; 
+  overflow-y: auto; 
+  width: 100%;
+  z-index: 1;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #f1f1f1;
+}
+
+.large-image {
+  width: 200px; 
+  height: auto; 
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 10px;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  white-space: normal; 
+  word-wrap:break-word; 
+  z-index: 10;
+  min-width: 700px; 
+}

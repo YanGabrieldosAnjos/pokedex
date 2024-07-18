@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { lastValueFrom, Observable } from "rxjs";
+import { lastValueFrom } from "rxjs";
 import { IPokedex, IPokedexList } from "../../../../api/src/pokemon/interface/pokedex.interface";
+import { IPokemon } from "../../../../api/src/pokemon/interface/pokemon.interface";
 
 @Injectable({
     providedIn: 'root',
@@ -23,5 +24,12 @@ export class PokemonService {
 
     async search(name: string) {
         return (await lastValueFrom(this.client.get<IPokedex>(`${this.apiUrl}/pokemon/search?name=${name}`)));
+    }
+
+    async detail(id: string) {
+        return (await lastValueFrom(this.client.get<IPokemon>(`${this.apiUrl}/pokemon/${id}`)));
+    }
+    async moveDetail(moveId: string) {
+        return (await lastValueFrom(this.client.get<any>(`${this.apiUrl}/pokemon/move/${moveId}`)));
     }
 }

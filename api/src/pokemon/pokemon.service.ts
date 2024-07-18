@@ -6,21 +6,21 @@ import { lastValueFrom } from "rxjs";
 
 @Injectable()
 export class PokemonService {
-    private readonly baseUrl = "https://pokeapi.co/api/v2/pokemon";
+    private readonly baseUrl = "https://pokeapi.co/api/v2/";
     constructor(private readonly httpService: HttpService) {}
     async list(pagination?: {limit: number, offset: number}, ) {
         const listUrl = pagination ? 
-        `${this.baseUrl}/?offset=${pagination.offset}&limit=${pagination.limit}`
+        `${this.baseUrl}pokemon/?offset=${pagination.offset}&limit=${pagination.limit}`
         : this.baseUrl;
-        return (await lastValueFrom(this.httpService.get<IPokedexList[]>(listUrl ?? this.baseUrl))).data;
+        return (await lastValueFrom(this.httpService.get<IPokedexList[]>(listUrl ?? `${this.baseUrl}/pokemon`))).data;
     }
 
     async query(name: string) {
-        return (await lastValueFrom(this.httpService.get<Pick<IPokemon, 'species'>>(`${this.baseUrl}/${name}`))).data.species;
+        return (await lastValueFrom(this.httpService.get<Pick<IPokemon, 'species'>>(`${this.baseUrl}/pokemon/${name}`))).data.species;
     }
 
     async getDetails(id: string): Promise<IPokemon> {
-        let {data} = await lastValueFrom(this.httpService.get<IPokemon>(`${this.baseUrl}/${id}`));
+        let {data} = await lastValueFrom(this.httpService.get<IPokemon>(`${this.baseUrl}/pokemon/${id}`));
 
         return {
             abilities: data.abilities.map(({ability, is_hidden, slot}) => ({ability, is_hidden, slot})),
@@ -38,6 +38,15 @@ export class PokemonService {
             types: data.types.map(({slot, type}) => ({slot, type: {name: type.name, url: type.url}})),
             weight: data.weight,
         };
+    }
+
+    async getMoveDetail(moveId: string) {
+        
+        let req = await lastValueFrom(this.httpService.get(`${this.baseUrl}/ability/${moveId}`)).catch(error => console.log(error));
+        if(!req) {
+            req = (await lastValueFrom(this.httpService.get(`${this.baseUrl}/move/${moveId}`)));
+        }
+        return req.data.effect_entries.find(ee => ee.language.name === "en");
     }
 
 }

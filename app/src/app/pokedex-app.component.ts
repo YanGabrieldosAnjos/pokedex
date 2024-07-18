@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router, RouterOutlet } from '@angular/router';
+import { Route, Router, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { PokemonService } from './pokemon/pokemon.service';
 import { IPokedexList } from '../../../api/src/pokemon/interface/pokedex.interface';
 
@@ -39,5 +39,10 @@ export class PokedexAppComponent implements OnInit{
       this.pokemons = await this.pokemonService.getList()
     }
   }
-  async details(id: string) {}
+  async details(url: string) {
+    const urlParts= url.split("/");
+    const id = urlParts[urlParts.length-2];
+    this.router.navigate(['/detail', id]);
+  }
+  
 }

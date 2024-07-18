@@ -4,7 +4,8 @@
     <ul class="snes-list is-nature-list-color">
       <li *ngFor="let pokemon of pokemons?.results" class="list-group-item d-flex justify-content-between align-items-center">
         {{ pokemon.name }}
-        <button class="snes-button has-plumber-color" (click)="details(pokemon.url)">Details</button>
+        
+        <button class="snes-button has-plumber-color" routerLink="/detail" routerLinkActive="active"  (click)="details(pokemon.url)">Details</button>
       </li>
     </ul>
     <div class="container mt-5">

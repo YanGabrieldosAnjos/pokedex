@@ -1,0 +1,31 @@
+<div class="modal">
+    <h2>Details</h2>
+    <div *ngIf="pokemon">
+      <p>Name: {{ pokemon.name }}</p>
+      <img src={{pokemon.sprites.front_default}} class="large-image">
+      <p>weight: {{ pokemon.weight }}</p>
+      <p>Height: {{ pokemon.height }}</p>
+      <p>Move List: </p>
+      <button (click)="toggleList()" class="dropdown-toggle">MoveList</button>
+      <div *ngIf="showList" class="dropdown-menu">
+        <ul>
+          <li *ngFor="let move of pokemon.moves" (mouseover)="selectItem(move.move.url)" (mouseleave)="hideTooltip()">
+            {{ move.move.name }}
+          </li>
+        </ul>
+      </div>
+      <p> Types: </p>
+      <button (click)="toggleType()" class="dropdown-toggle">Types</button>
+      <div *ngIf="showType" class="dropdown-menu">
+        <ul>
+          <li *ngFor="let type of pokemon.types">
+            {{ type.type.name }}
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="tooltipVisible" class="tooltip">
+        {{ selectedItem }}
+      </div>
+    </div>
+    <button class="snes-button has-plumber-color" (click)="goBack()">Voltar</button>
+  </div>

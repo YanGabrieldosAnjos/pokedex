@@ -23,6 +23,11 @@ export class PokemonController {
     async details(@Param("id") id: string) {
         return this.pokemonService.getDetails(id);
     }
+
+    @Get('move/:moveId')
+    async moveDetail(@Param("moveId") id: string) {
+        return this.pokemonService.getMoveDetail(id);
+    }
     
 
 }
